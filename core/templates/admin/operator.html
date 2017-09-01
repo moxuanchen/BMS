@@ -1,0 +1,76 @@
+{% set pageId = 'dashboard' %}
+{% extends 'admin/base.html' %}
+{% block title %}控制台{% endblock %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      控制台
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-warning collapsed-box">
+          <div class="box-header with-border">
+            <h3 class="box-title">条件筛选</h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+          <div class="box-body">
+            <form class="container-fluid" action="?" method="get">
+              <div class="row">
+                <div class="col-xs-3">
+                  <div class="form-group">
+                    <input name="keyword" type="text" class="form-control" placeholder="锁定/解锁/登陆">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-6">
+                  <button type="submit" class="btn btn-primary">查询</button>
+                  <a href="?" class="btn btn-default">清除条件</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-header">
+            <h3 class="box-title">操作日志 (共: {{count}} 条)</h3>
+          </div>
+          <div class="box-body">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th class="text-center">用户名</th>
+                  <th class="text-center">操作描述</th>
+                  <th class="text-center">机构名称</th>
+                  <th class="text-center">机构编号</th>
+                  <th class="text-center">操作时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in logs %}
+                <tr>
+                  <td class="text-center">{{ item.username }}</td>
+                  <td class="text-center">{{ item.desc }}</td>
+                  <td class="text-center">{{ item.school_name }}</td>
+                  <td class="text-center">{{ item.school_code }}</td>
+                  <td class="text-center">{{ item.create_at }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

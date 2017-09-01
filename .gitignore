@@ -1,0 +1,78 @@
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+data
+migrations
+
+playbook/site.retry
+
+# Installer logs
+pip-log.txt
+
+# sqlite db
+*.db
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+.vscode
+
+# Complexity
+output/*.html
+output/*/index.html
+
+# Sphinx
+docs/_build
+
+.webassets-cache
+
+# Virtualenvs
+env
+env*
+
+
+# assets generated files
+doremi/static/css/public/
+doremi/static/css/school/
+doremi/static/js/public/
+doremi/static/js/school/
+doremi/static/api_upload/
+
+node_modules/
+
+.DS_Store
+.swp
+dev.sh
+doremi/static/icons/000.png
+doremi.sublime-project
+doremi/models
+doremi/LocalConfig.yaml
+
+.idea/
+.venv/
+*.yml

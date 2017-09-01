@@ -1,0 +1,109 @@
+{% set pageId = 'dashboard' %}
+{% extends 'admin/base.html' %}
+{% block title %}控制台{% endblock %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      控制台
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-warning collapsed-box">
+          <div class="box-header with-border">
+            <h3 class="box-title">条件筛选</h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+          <div class="box-body">
+            <form class="container-fluid" action="?" method="get">
+              <div class="row">
+                <div class="col-xs-3">
+                  <div class="form-group">
+                    <input name="name" type="text" class="form-control" placeholder="机构名称/联系人">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-3">
+                  <div class="form-group">
+                    <label>类型</label>
+                    <select name="stype" class="form-control">
+                      <option value="all">全部</option>
+                      <option value="both">尤克里里|非洲鼓</option>
+                      <option value="ukulele">尤克里里</option>
+                      <option value="drums">非洲鼓</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-3">
+                  <button type="submit" class="btn btn-primary">查询</button>
+                  <a href="?" class="btn btn-default">清除条件</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-header">
+            <h3 class="box-title">机构数量 (共: {{count}} 个)</h3>
+          </div>
+          <div class="box-body">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th class="text-center">名称</th>
+                  <th class="text-center">作者</th>
+                  <th class="text-center">出版社</th>
+                  <th class="text-center">ISBN</th>
+                  <th class="text-center">借阅者</th>
+                  <th class="text-center">联系电话</th>
+                  <th class="text-center">创建时间</th>
+                  <th class="text-center">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for school in schools %}
+                <tr>
+                  <td class="text-center">{{ school.name }}</td>
+                  <td class="text-center">{{ school.code }}</td>
+                  <td class="text-center">
+                    {% if school.school_type == 'ukulele' %}
+                      尤克里里
+                    {% elif school.school_type == 'drums'%}
+                      非洲鼓
+                    {% elif school.school_type == 'both' %}
+                      尤克里里|非洲鼓
+                    {% else%}
+                      -
+                    {% endif %}</td>
+                  <td class="text-center">{{ school.stu_num }}</td>
+                  <td class="text-center">{{ school.contact_name }}</td>
+                  <td class="text-center">{{ school.phone }}</td>
+                  <td class="text-center">{{ school.created_at }}</td>
+                  {% if school.video_visible %}
+                    <td class="text-center"><a href="videocontrol?id={{school.id}}&status=nonvisible">关闭视频</a></td>
+                  {% else %}
+                    <td class="text-center"><a href="videocontrol?id={{school.id}}&status=visible">开放视频</a></td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
