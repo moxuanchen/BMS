@@ -37,7 +37,7 @@ def signin():
             password=request.form['password']
         ).first()
         if not user:
-            return render_json(1, {'err_no': 'pwd_error', 'input': 'pwd'})
+            return render_json(1, {'err_no': 'pwd_error', 'input': 'password'})
 
         login_user(ClientLoginUser(user))
         next = request.form.get('next', '')
