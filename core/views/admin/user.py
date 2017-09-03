@@ -14,7 +14,16 @@ from core.views.common import render_json
 @admin.route('/users', methods=['GET'])
 @login_required
 def company_users():
-    users = User.query.filter_by(active=True).all()
+    keyword = request.args.get('keyword', '')
+    user_query = User.query
+    if keyword:
+        keyword = "%%%s%%" % keyword
+        user_query = user_query.filter(or_(
+            User.name.like(keyword),
+            User.phone.like(keyword),
+            User.number.like(keyword)
+        ))
+    users = user_query.filter_by(active=True).all()
     return render_template("admin/user.html", users=users, count=len(users))
 
 

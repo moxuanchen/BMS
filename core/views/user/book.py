@@ -7,19 +7,40 @@ from flask import render_template
 from flask_login import login_required
 from flask_login import current_user
 from flask import redirect, url_for
+from sqlalchemy import or_
 
 
 @client.route('/books', methods=['GET'])
 @login_required
 def books_list():
-    books = Book.query.filter_by(active=True).all()
+    keyword = request.args.get('keyword', '')
+    book_query = Book.query
+    if keyword:
+        keyword = "%%%s%%" % keyword
+        book_query = book_query.filter(or_(
+            Book.name.like(keyword),
+            Book.author.like(keyword),
+            Book.publish.like(keyword),
+            Book.isbn.like(keyword)
+        ))
+    books = book_query.filter_by(active=True).all()
     return render_template('user/book.html', books=books, count=len(books))
 
 
 @client.route('/book/mine', methods=['GET'])
 @login_required
 def my_books_list():
-    books = Book.query.filter_by(active=True, borrowed_by=current_user.user.name).all()
+    keyword = request.args.get('keyword', '')
+    book_query = Book.query
+    if keyword:
+        keyword = "%%%s%%" % keyword
+        book_query = book_query.filter(or_(
+            Book.name.like(keyword),
+            Book.author.like(keyword),
+            Book.publish.like(keyword),
+            Book.isbn.like(keyword)
+        ))
+    books = book_query.filter_by(active=True, borrowed_by=current_user.user.name).all()
     return render_template('user/book_order.html', books=books, count=len(books))
 
 

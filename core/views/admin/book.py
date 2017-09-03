@@ -6,6 +6,7 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from core.models import Book
+from sqlalchemy import or_
 from flask import render_template
 from flask_login import login_required
 from core.views.common import render_json
@@ -14,7 +15,17 @@ from core.views.common import render_json
 @admin.route('/books', methods=['GET'])
 @login_required
 def books_list():
-    books = Book.query.filter_by(active=True).all()
+    keyword = request.args.get('keyword', '')
+    book_query = Book.query
+    if keyword:
+        keyword = "%%%s%%" % keyword
+        book_query = book_query.filter(or_(
+            Book.name.like(keyword),
+            Book.author.like(keyword),
+            Book.publish.like(keyword),
+            Book.isbn.like(keyword)
+        ))
+    books = book_query.filter_by(active=True).all()
     return render_template('admin/book.html', books=books, count=len(books))
 
 
