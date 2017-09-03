@@ -75,7 +75,13 @@
                 {% for user in users %}
                 <tr>
                   <td class="text-center">{{ user.name }}</td>
-                  <td class="text-center">{{ user.gender }}</td>
+                  <td class="text-center">
+                    {% if user.gender == 0 %}
+                      男
+                    {% else %}
+                      女
+                    {% endif %}
+                  </td>
                   <td class="text-center">{{ user.number }}</td>
                   <td class="text-center">{{ user.phone }}</td>
                   <td class="text-center">{{ user.department }}</td>
