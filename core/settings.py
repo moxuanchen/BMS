@@ -19,7 +19,7 @@ class Config(object):
 
 class DevConfig(Config):
     DEBUG = True
-    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_ECHO = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:a1b2c3@A@localhost/bms?charset=utf8"
 

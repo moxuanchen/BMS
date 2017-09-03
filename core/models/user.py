@@ -12,6 +12,7 @@ class User(Model, SurrogatePK):
     __tablename__ = "user"
 
     name = db.Column(db.String(32), nullable=False)
+    password = db.Column(db.String(32), nullable=False)
     gender = db.Column(db.Integer, nullable=False)
     number = db.Column(db.String(16), nullable=False)
     phone = db.Column(db.String(16), nullable=True)

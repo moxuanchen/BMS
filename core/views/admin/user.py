@@ -24,6 +24,7 @@ def user_add():
     if request.method == 'POST':
         user = {
             'name': request.form['name'],
+            'password': '111111',
             'gender': request.form['gender'],
             'number': request.form['number'],
             'phone': request.form['phone'],
@@ -40,7 +41,6 @@ def user_add():
 def user_edit():
     user_id = request.args.get('id')
     user = User.get_by_id(user_id)
-    print request.method
     if request.method == 'POST':
         print 'YES'
         user_info = {
@@ -50,10 +50,7 @@ def user_edit():
             'phone': request.form['phone'],
             'department': request.form['department'],
         }
-
-        print user
         user.update(**user_info)
-        print 'xxxxxxx'
         return render_json(0, {'href': '/admin/users', 'delaySuccess': True})
     return render_template('admin/user_edit.html', user=user)
 
